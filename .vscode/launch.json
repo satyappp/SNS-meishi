@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "flutter_practice",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter_practice (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter_practice (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "Flutter (iPhone 15 Pro Max)",
+            "program": "lib/main.dart",
+            "deviceId": "28DB13DE-7638-4562-8F17-8E75D66BADED",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
