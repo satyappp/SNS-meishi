@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import  'SettingPage.dart';
+import '../function/GenerateQRcode.dart';
 
 class MyHomePage extends StatefulWidget {
   //  constructor
@@ -102,7 +102,18 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SettingPage()),
+                  MaterialPageRoute(builder: (context) => const SettingPage()),//jump to settingpage
+                );
+              },
+
+            ),
+            IconButton(
+              icon: const Icon(Icons.qr_code,
+                  color: Color(0xFFFFFFFF), size: 30),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GenerateQRCode()),//jump to settingpage
                 );
               },
 
