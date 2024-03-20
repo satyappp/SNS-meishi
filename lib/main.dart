@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 
@@ -46,8 +48,81 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+// DropdoenMenuItem
+const _SNSitems = [
+  DropdownMenuItem(
+    value: 'X(Twitter)',
+    child: Text('X(Twitter)'),
+  ),
+  DropdownMenuItem(
+    value: 'Instagram',
+    child: Text('Instagram'),
+  ),
+  DropdownMenuItem(
+    value: 'Facebook',
+    child: Text('Facebook'),
+  ),
+  DropdownMenuItem(
+    value: 'LINE',
+    child: Text('LINE'),
+  ),
+  DropdownMenuItem(
+    value: 'WhatApp',
+    child: Text('WhatApp'),
+  ),
+  DropdownMenuItem(
+    value: 'Snapchat',
+    child: Text('Snapchat'),
+  ),
+  DropdownMenuItem(
+    value: 'KakaoTalk',
+    child: Text('KakaoTalk'),
+  ),
+  DropdownMenuItem(
+    value: 'Discord',
+    child: Text('Discord'),
+  ),
+  DropdownMenuItem(
+    value: 'TikTok',
+    child: Text('TikTok'),
+  ),
+  DropdownMenuItem(
+    value: 'Youtube',
+    child: Text('Youtube'),
+  ),
+  DropdownMenuItem(
+    value: 'Twitch',
+    child: Text('Twitch'),
+  ),
+  DropdownMenuItem(
+    value: 'Pinterest',
+    child: Text('Pinterest'),
+  ),
+  DropdownMenuItem(
+    value: 'GitHub',
+    child: Text('GitHub'),
+  ),
+  DropdownMenuItem(
+    value: 'pixiv',
+    child: Text('pixiv'),
+  ),
+  DropdownMenuItem(
+    value: 'other1',
+    child: Text('other1'),
+  ),
+  DropdownMenuItem(
+    value: 'other2',
+    child: Text('other2'),
+  ),
+];
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  // icon image
+  List<Image> images = [];
+
+  String _value = _SNSitems[0].value!;
 
   void _incrementCounter() {
     setState(() {
@@ -79,23 +154,57 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+          child: Column(children: <Widget>[
+        GestureDetector(onTap: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  insetPadding:
+                      const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                  content: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 15),
+                        child: const Text(
+                          'Add Link',
+                          style: TextStyle(),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          DropdownButton(
+                            value: _value,
+                            items: _SNSitems,
+                            onChanged: (value) {
+                              setState(() {
+                                _value = value!;
+                              });
+                            },
+                          ),
+                          TextField(
+                            decoration: InputDecoration(
+                                labelText: 'Link*',
+                                hintText: 'www.example.com'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              });
+        }),
+      ])),
+
+      // 画像をボタンとして表示
+
       // button settings
+
+      // add Button
+
       /// FloatingActionButtion
       floatingActionButton: SizedBox(
         width: 60,
