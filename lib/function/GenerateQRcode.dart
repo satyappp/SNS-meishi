@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'ShowQRcode.dart';
+import 'DropdownButton.dart';
+
 //https://medium.com/podiihq/generating-qr-code-in-a-flutter-app-50de15e39830
 
 class GenerateQRCode extends StatefulWidget {
@@ -7,7 +9,6 @@ class GenerateQRCode extends StatefulWidget {
 
   @override
   GenerateQRCodeState createState() => GenerateQRCodeState();
-
 }
 
 class GenerateQRCodeState extends State<GenerateQRCode> {
@@ -17,6 +18,9 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
 
   @override
   Widget build(BuildContext context) {
+    DropdownButtonForSNS _dropdownButtonForSNS = DropdownButtonForSNS(
+      selectedValue: '',
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('create SNS LIBRARY'),
@@ -27,10 +31,23 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
         children: [
           Container(
             margin: const EdgeInsets.all(20),
+            child: _dropdownButtonForSNS,
+            // child: TextField(
+            //   controller: namecontroller,
+            //   decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: 'Enter your SNS NAME'),
+            // ),
+          ),
+          const SizedBox(height: 15),
+          const Text("Enter your SNS NAME IF YOU CHOOSE 'others'",
+              style: TextStyle(fontSize: 16)),
+          Container(
+            margin: const EdgeInsets.all(20),
             child: TextField(
               controller: namecontroller,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Enter your SNS NAME'),
+                  border: OutlineInputBorder(), labelText: 'others'),
             ),
           ),
           Container(
@@ -38,7 +55,8 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
             child: TextField(
               controller: URLcontroller,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Enter your SNS URL'),
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter your SNS URL'),
             ),
           ),
           Container(
@@ -46,12 +64,18 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
             child: TextField(
               controller: etccontroller,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'Enter your etc description'),
+                  border: OutlineInputBorder(),
+                  labelText: 'Enter your etc description'),
             ),
           ),
           //This button when pressed navigates to QR code generation
           ElevatedButton(
               onPressed: () async {
+                if (_dropdownButtonForSNS.selectedValue == 'others') {
+                  print("SNS name type is 'others'");
+                }
+                // ignore: avoid_print
+                print(_dropdownButtonForSNS.selectedValue); //for debugging
                 Navigator.push(
                   context,
                   MaterialPageRoute(
