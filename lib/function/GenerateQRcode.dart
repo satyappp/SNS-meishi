@@ -39,6 +39,17 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
             //       labelText: 'Enter your SNS NAME'),
             // ),
           ),
+          const SizedBox(height: 15),
+          const Text("Enter your SNS NAME IF YOU CHOOSE 'others'",
+              style: TextStyle(fontSize: 16)),
+          Container(
+            margin: const EdgeInsets.all(20),
+            child: TextField(
+              controller: namecontroller,
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'others'),
+            ),
+          ),
           Container(
             margin: const EdgeInsets.all(20),
             child: TextField(
@@ -60,6 +71,9 @@ class GenerateQRCodeState extends State<GenerateQRCode> {
           //This button when pressed navigates to QR code generation
           ElevatedButton(
               onPressed: () async {
+                if (_dropdownButtonForSNS.selectedValue == 'others') {
+                  print("SNS name type is 'others'");
+                }
                 // ignore: avoid_print
                 print(_dropdownButtonForSNS.selectedValue); //for debugging
                 Navigator.push(

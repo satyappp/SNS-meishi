@@ -60,12 +60,8 @@ const _snsItems = [
     child: Text('pixiv'),
   ),
   DropdownMenuItem(
-    value: 'other1',
-    child: Text('other1'),
-  ),
-  DropdownMenuItem(
-    value: 'other2',
-    child: Text('other2'),
+    value: 'others',
+    child: Text('others'),
   ),
 ];
 
