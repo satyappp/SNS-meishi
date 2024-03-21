@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
-import  'SettingPage.dart';
+import 'SettingPage.dart';
 import '../function/GenerateQRcode.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -67,22 +67,19 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       // button settings
       /// FloatingActionButtion
-      floatingActionButton:SizedBox(
+      floatingActionButton: SizedBox(
         width: 90,
         height: 90,
         child: FloatingActionButton(
           onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>const MyHomePage(title: 'home page',)),
-                );
-              },
+            setState(() {});
+          },
           tooltip: 'Increment',
-          child:
-              const Icon(Icons.home, color: Color(0xFFFFFFFF), size: 35),
+          child: const Icon(Icons.home, color: Color(0xFFFFFFFF), size: 35),
         ),
-        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
       /// bottomNavigationBar
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(), // 下部ナビゲーションバーの形状を設定
@@ -102,21 +99,23 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SettingPage()),//jump to settingpage
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const SettingPage()), //jump to settingpage
                 );
               },
-
             ),
             IconButton(
-              icon: const Icon(Icons.qr_code,
-                  color: Color(0xFFFFFFFF), size: 30),
+              icon:
+                  const Icon(Icons.qr_code, color: Color(0xFFFFFFFF), size: 30),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const GenerateQRCode()),//jump to settingpage
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const GenerateQRCode()), //jump to settingpage
                 );
               },
-
             ),
           ],
         ),
