@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'SettingPage.dart';
 import '../function/GenerateQRcode.dart';
@@ -17,14 +18,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   void _openCamera() async {
     var openAppResult = await LaunchApp.openApp(
         androidPackageName: 'com.google.android.GoogleCamera',
@@ -47,7 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('SNS MEISHI',style: GoogleFonts.kodchasan()),
+        titleTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: MediaQuery.of(context).size.width * 0.057, // Slightly smaller and responsive font size 
+          fontWeight: FontWeight.w700,
+        ),
       ),
       body: Container(
         // Center is a layout widget. It takes a single child and positions it
@@ -89,14 +87,24 @@ class _MyHomePageState extends State<MyHomePage> {
             // settings button
           
             IconButton(
-              icon:
-                  const Icon(Icons.qr_code, color: Color(0xFFFFFFFF), size: 30),
+              icon: const Icon(Icons.qr_code, color: Color(0xFFFFFFFF), size: 30),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const GenerateQRCode()), //jump to settingpage
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog(
+                      shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                      backgroundColor: Colors.white,
+                      surfaceTintColor: Colors.white,
+                      child: Container(
+                        // padding: const EdgeInsets.all(0),
+                        // width: double.infinity,
+                        
+                        child: GenerateQRCode(),
+                      ),
+                    );
+                  },
                 );
               },
             ),

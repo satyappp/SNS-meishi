@@ -56,12 +56,12 @@ const _snsItems = [
     child: Text('GitHub'),
   ),
   DropdownMenuItem(
-    value: 'pixiv',
-    child: Text('pixiv'),
+    value: 'Pixiv',
+    child: Text('Pixiv'),
   ),
   DropdownMenuItem(
-    value: 'others',
-    child: Text('others'),
+    value: 'Other',
+    child: Text('Other'),
   ),
 ];
 
@@ -83,9 +83,20 @@ class _DropdownButtonForSNS_State extends State<DropdownButtonForSNS> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: _dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
+      icon: const Icon(Icons.arrow_drop_down, color: Color.fromARGB(167, 0, 0, 0)),
       decoration: const InputDecoration(
-          border: OutlineInputBorder(), hintText: 'Enter your SNS NAME'),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFCFD4DC)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF613EEA)),
+        ),
+        labelText: 'Choose App',
+        labelStyle: TextStyle(
+          color: Color.fromARGB(167, 0, 0, 0)
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10)),
       elevation: 16,
       items: _snsItems,
       menuMaxHeight: 300,
