@@ -92,19 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Color(0xFFFFFFFF), size: 30),
               onPressed: _openCamera,
             ),
-            // settings button
-            IconButton(
-              icon: const Icon(Icons.settings,
-                  color: Color(0xFFFFFFFF), size: 30),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const SettingPage()), //jump to settingpage
-                );
-              },
-            ),
             IconButton(
               icon:
                   const Icon(Icons.qr_code, color: Color(0xFFFFFFFF), size: 30),
