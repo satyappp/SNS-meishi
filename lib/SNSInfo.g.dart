@@ -17,24 +17,21 @@ class SNSInfoAdapter extends TypeAdapter<SNSInfo> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SNSInfo(
-      name: fields[0] as String,
+      name: fields[0] as String?,
       url: fields[1] as String,
-      etc: fields[2] as String,
-      icon: fields[3] as String,
+      icon: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SNSInfo obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.url)
       ..writeByte(2)
-      ..write(obj.etc)
-      ..writeByte(3)
       ..write(obj.icon);
   }
 
