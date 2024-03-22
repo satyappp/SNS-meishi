@@ -16,19 +16,15 @@ const _snsItems = [
     child: Text('Facebook'),
   ),
   DropdownMenuItem(
-    value: 'LINE',
+    value: 'LINE', 
     child: Text('LINE'),
   ),
   DropdownMenuItem(
-    value: 'WhatApp',
-    child: Text('WhatApp'),
+    value: 'WhatsApp',
+    child: Text('WhatsApp'),
   ),
   DropdownMenuItem(
-    value: 'Snapchat',
-    child: Text('Snapchat'),
-  ),
-  DropdownMenuItem(
-    value: 'KakaoTalk',
+    value: 'KakaoTalk', 
     child: Text('KakaoTalk'),
   ),
   DropdownMenuItem(
@@ -36,19 +32,19 @@ const _snsItems = [
     child: Text('Discord'),
   ),
   DropdownMenuItem(
-    value: 'TikTok',
+    value: 'TikTok', 
     child: Text('TikTok'),
   ),
   DropdownMenuItem(
-    value: 'Youtube',
+    value: 'Youtube', 
     child: Text('Youtube'),
   ),
   DropdownMenuItem(
-    value: 'Twitch',
+    value: 'Twitch', 
     child: Text('Twitch'),
   ),
   DropdownMenuItem(
-    value: 'Pinterest',
+    value: 'Pinterest', 
     child: Text('Pinterest'),
   ),
   DropdownMenuItem(
@@ -56,8 +52,8 @@ const _snsItems = [
     child: Text('GitHub'),
   ),
   DropdownMenuItem(
-    value: 'Pixiv',
-    child: Text('Pixiv'),
+    value: 'LinkedIn', 
+    child: Text('LinkedIn'),
   ),
   DropdownMenuItem(
     value: 'Other',
