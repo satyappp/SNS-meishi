@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/Home-Screen.png"),
+            image: AssetImage("assets/Home-Screen-bg.png"),
             fit: BoxFit.fill,
           ),
         ),
