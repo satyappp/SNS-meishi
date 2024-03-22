@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/HomePage.dart';
+import 'pages/SplashScreen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return MaterialApp(
-      title: 'SNS Meishi',
+      title: 'SNS MEISHI',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorScheme: const ColorScheme(
@@ -28,8 +29,9 @@ class MyApp extends StatelessWidget {
         onError: Color.fromARGB(223, 0, 0, 0),
         brightness: Brightness.dark,
       )),
-      home: const MyHomePage(title: 'SNS Meishi'),
+      home: const SplashScreen(),
     );
   }
 }
+
 

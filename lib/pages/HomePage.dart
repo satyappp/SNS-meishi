@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
-import 'SettingPage.dart';
 import '../function/GenerateQRcode.dart';
 
 class MyHomePage extends StatefulWidget {
