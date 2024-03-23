@@ -3,14 +3,10 @@ import 'package:flutter_practice/SNSInfo.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'function/global.dart';
 import 'pages/SplashScreen.dart';
-import 'function/global.dart';
-import 'package:flutter_practice/SNSInfo.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 Future<void> main() async {
+  Hive.registerAdapter(SNSInfoAdapter());
   await Hive.initFlutter();
   await initGlobalBox(); 
-
-  Hive.registerAdapter(SNSInfoAdapter());
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
