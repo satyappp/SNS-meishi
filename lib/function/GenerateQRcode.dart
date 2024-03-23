@@ -1,12 +1,9 @@
 // import 'package:flutter/material.dart';
-import 'ShowQRcode.dart';
 // import 'DropdownButton.dart';
 import 'package:flutter/material.dart';
 import 'DropdownButton.dart'; // Your custom dropdown button implementation
 import 'AddElementToBox.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart'; //image picker
-import 'global.dart';
+//image picker
 
 // If GenerateQRCode doesn't need to be a StatefulWidget, simplify it to StatelessWidget
 class GenerateQRCode extends StatefulWidget {
@@ -22,15 +19,15 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
   final TextEditingController namecontroller = TextEditingController();
   final TextEditingController etccontroller = TextEditingController();
   String selectedValue = '';
-  Future<void> pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        img = File(pickedFile.path);
-      });
-    }
-  }
+  // Future<void> pickImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       img = File(pickedFile.path);
+  //     });
+  //   }
+  // }
 
   void _showErrorDialog() {
     //error output function
@@ -135,23 +132,23 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
                     labelStyle: TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
                     floatingLabelBehavior: FloatingLabelBehavior.never),
               ),
-              const SizedBox(height: 10),
-              Text(
-                'Upload the SNS icon',
-                style: TextStyle(
-                  color: Colors
-                      .black, // Assuming you want slightly dimmed black text for the description
-                  fontSize: MediaQuery.of(context).size.width *
-                      0.04, // Slightly smaller and responsive font size
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              FloatingActionButton(
-                onPressed: pickImage,
-                tooltip: 'Pick Image From Gallery',
-                heroTag: 'gallery',
-                child: const Icon(Icons.add_a_photo),
-              ),
+              // const SizedBox(height: 10),
+              // Text(
+              //   'Upload the SNS icon',
+              //   style: TextStyle(
+              //     color: Colors
+              //         .black, // Assuming you want slightly dimmed black text for the description
+              //     fontSize: MediaQuery.of(context).size.width *
+              //         0.04, // Slightly smaller and responsive font size
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              // ),
+              // FloatingActionButton(
+              //   onPressed: pickImage,
+              //   tooltip: 'Pick Image From Gallery',
+              //   heroTag: 'gallery',
+              //   child: const Icon(Icons.add_a_photo),
+              // ),
             ],
             // if (_dropdownButtonForSNS.selectedValue == 'others') ...[
             //   TextField(
@@ -194,20 +191,22 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
             //  when the QR Code button is pressed
             ElevatedButton(
               onPressed: () async {
-                if (URLcontroller.text.isNotEmpty && selectedValue != 'Other') {
+                if (URLcontroller.text.isNotEmpty && (namecontroller.text.isNotEmpty||selectedValue != 'Other') ){
                   String name = selectedValue;
                   String url = URLcontroller.text;
                   String iconType = selectedValue;
-                  if (selectedValue == 'Other') {
-                    print("SNS name type is 'Other'");
-                    name = namecontroller.text;
-                  }
+                  // if (selectedValue == 'Other') {
+                  //   print("SNS name type is 'Other'");
+                  //   name = namecontroller.text;
+                  // }
                   AddElement().addElementToglobalBox(name, url, " ", iconType);
                   Navigator.pop(context);
-                } else if (URLcontroller.text.isNotEmpty &&
-                    namecontroller.text.isNotEmpty) {
-                  String name = namecontroller.text;
-                  String url = URLcontroller.text;
+                // } else if (URLcontroller.text.isNotEmpty &&
+                //     namecontroller.text.isNotEmpty) {
+                //   String name = namecontroller.text;
+                //   String url = URLcontroller.text;
+                // AddElement().addElementToglobalBox(
+                //     name, URLcontroller.text, " ", "");
                 } else {
                   _showErrorDialog();
                 }

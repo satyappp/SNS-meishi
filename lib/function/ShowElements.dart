@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'ShowQRcode.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'global.dart';
-import 'GenerateQRcode.dart';
 
 class showElements extends StatelessWidget {
   //  constructor
@@ -18,19 +16,12 @@ class showElements extends StatelessWidget {
         fit: BoxFit.fill,
       );
     } else {
-      return img != null 
-            ? Image.file(
-                img!,
-                width: 150,
-                height: 150,
-                fit: BoxFit.fill,
-            )
-            : Image.asset(
-                "assets/Add-Button.png",
-                width: 150,
-                height: 150,
-                fit: BoxFit.fill,
-            );
+      return Image.asset(
+        "assets/Add-Button.png",
+        width: 150,
+        height: 150,
+        fit: BoxFit.fill,
+      );
     }
   }
 
