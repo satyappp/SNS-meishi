@@ -63,17 +63,23 @@ const _snsItems = [
 
 // ignore: must_be_immutable
 class DropdownButtonForSNS extends StatefulWidget {
-  String selectedValue;
-  DropdownButtonForSNS({Key? key, required this.selectedValue})
-      : super(key: key);
+  final String selectedValue;
+  final Function(String?) onChanged;
+
+  DropdownButtonForSNS({Key? key, required this.selectedValue, required this.onChanged}) : super(key: key);
 
   @override
-  State<DropdownButtonForSNS> createState() => _DropdownButtonForSNS_State();
+  _DropdownButtonForSNSState createState() => _DropdownButtonForSNSState();
 }
 
-class _DropdownButtonForSNS_State extends State<DropdownButtonForSNS> {
-  // String dropdownValue = _snsItems[0].value!;
+class _DropdownButtonForSNSState extends State<DropdownButtonForSNS> {
   String? _dropdownValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _dropdownValue = widget.selectedValue.isEmpty ? null : widget.selectedValue;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,16 +99,15 @@ class _DropdownButtonForSNS_State extends State<DropdownButtonForSNS> {
           floatingLabelBehavior: FloatingLabelBehavior.never,
           contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10)),
       elevation: 16,
-      items: _snsItems,
+      items: _snsItems, // Make sure _snsItems is defined somewhere in this class or passed as a parameter
       menuMaxHeight: 300,
-      onChanged: (String? value) {
-        // ignore: avoid_print
-        // This is called when the user selects an item.
+      onChanged: (String? newValue) {
         setState(() {
-          _dropdownValue = value!;
-          widget.selectedValue = _dropdownValue!;
+          _dropdownValue = newValue;
         });
+        widget.onChanged(newValue); // Notify the external listener about the change
       },
     );
   }
 }
+
