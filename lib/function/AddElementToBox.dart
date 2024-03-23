@@ -3,11 +3,12 @@ import '../SNSInfo.dart';
 import 'global.dart';
 
 class AddElement {
-  void addElementToglobalBox(name, url, icon) async {
+  void addElementToglobalBox(name, url, icon, iconType) async {
     var Librarydata = SNSInfo(
       icon: icon,
       name: name,
       url: url,
+      iconType: iconType,
     );
     var box = Hive.box('libarybox');
     await box.add(Librarydata);

@@ -13,5 +13,12 @@ class SNSInfo {
   @HiveField(2)
   String icon;
 
-  SNSInfo({required this.name, required this.url, required this.icon});
+  @HiveField(3)
+  String iconType;
+
+  SNSInfo(
+      {required this.name,
+      required this.url,
+      required this.icon,
+      required this.iconType});
 }

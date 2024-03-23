@@ -129,6 +129,7 @@ class GenerateQRCode extends StatelessWidget {
               onPressed: () async {
                 String name = _dropdownButtonForSNS.selectedValue;
                 String url = URLcontroller.text;
+                String iconType = _dropdownButtonForSNS.selectedValue;
                 if (_dropdownButtonForSNS.selectedValue == 'Other') {
                   print("SNS name type is 'Other'");
                   name = namecontroller.text;
@@ -136,8 +137,8 @@ class GenerateQRCode extends StatelessWidget {
                 if (url == '') {
                   print("error input");
                 }
-                AddElement()
-                    .addElementToglobalBox(name, URLcontroller.text, " ");
+                AddElement().addElementToglobalBox(
+                    name, URLcontroller.text, " ", iconType);
 
                 Navigator.push(
                   context,

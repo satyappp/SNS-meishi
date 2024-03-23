@@ -20,12 +20,8 @@ const _snsItems = [
     child: Text('LINE'),
   ),
   DropdownMenuItem(
-    value: 'WhatApp',
-    child: Text('WhatApp'),
-  ),
-  DropdownMenuItem(
-    value: 'Snapchat',
-    child: Text('Snapchat'),
+    value: 'WhatsApp',
+    child: Text('WhatsApp'),
   ),
   DropdownMenuItem(
     value: 'KakaoTalk',
@@ -56,8 +52,8 @@ const _snsItems = [
     child: Text('GitHub'),
   ),
   DropdownMenuItem(
-    value: 'Pixiv',
-    child: Text('Pixiv'),
+    value: 'LinkedIn',
+    child: Text('LinkedIn'),
   ),
   DropdownMenuItem(
     value: 'Other',
@@ -83,20 +79,19 @@ class _DropdownButtonForSNS_State extends State<DropdownButtonForSNS> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: _dropdownValue,
-      icon: const Icon(Icons.arrow_drop_down, color: Color.fromARGB(167, 0, 0, 0)),
+      icon: const Icon(Icons.arrow_drop_down,
+          color: Color.fromARGB(167, 0, 0, 0)),
       decoration: const InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFCFD4DC)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF613EEA)),
-        ),
-        labelText: 'Choose App',
-        labelStyle: TextStyle(
-          color: Color.fromARGB(167, 0, 0, 0)
-        ),
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10)),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFCFD4DC)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF613EEA)),
+          ),
+          labelText: 'Choose App',
+          labelStyle: TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10)),
       elevation: 16,
       items: _snsItems,
       menuMaxHeight: 300,
