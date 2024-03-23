@@ -51,7 +51,31 @@ class showElements extends StatelessWidget {
               child: Container(child: _QRcodeImage(snsURL)));
         });
   }
-
+  Future<void> _showDeleteConfirmation(BuildContext context, int index) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete this item?'),
+          content: const Text('This will remove the item permanently.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -72,6 +96,7 @@ class showElements extends StatelessWidget {
               print("You tapped");
               await _showQRcode(context, snsURL);
             },
+            onLongPress: () => _showDeleteConfirmation(context, index),
             child: Container(
                 child: Column(
                   // mainAxisSize: MainAxisSize.min,
