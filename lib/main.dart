@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import 'pages/HomePage.dart';
+import 'package:flutter_practice/SNSInfo.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'function/global.dart';
 import 'pages/SplashScreen.dart';
-void main() {
+
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(SNSInfoAdapter());
+  WidgetsFlutterBinding.ensureInitialized();
+  await initGlobalBox();
   runApp(const MyApp());
 }
 
@@ -19,7 +26,7 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme(
         primary: Color(0xFF613EEA),
         secondary: Color(0xFF613EEA),
-        surface: Color.fromARGB(255,30,30, 30),
+        surface: Color.fromARGB(255, 30, 30, 30),
         background: Color.fromARGB(255, 255, 255, 255),
         error: Color(0xFFB00020),
         onPrimary: Color(0xFF613EEA),
@@ -33,5 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

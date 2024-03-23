@@ -1,98 +1,9 @@
 // import 'package:flutter/material.dart';
 import 'ShowQRcode.dart';
 // import 'DropdownButton.dart';
-
-// //https://medium.com/podiihq/generating-qr-code-in-a-flutter-app-50de15e39830
-
-// class GenerateQRCode extends StatefulWidget {
-//   const GenerateQRCode({super.key});
-
-//   @override
-//   GenerateQRCodeState createState() => GenerateQRCodeState();
-// }
-
-// class GenerateQRCodeState extends State<GenerateQRCode> {
-//   TextEditingController URLcontroller = TextEditingController();
-//   TextEditingController namecontroller = TextEditingController();
-//   TextEditingController etccontroller = TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     DropdownButtonForSNS _dropdownButtonForSNS = DropdownButtonForSNS(
-//       selectedValue: '',
-//     );
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('create SNS LIBRARY'),
-//         centerTitle: true,
-//       ),
-//       body: Column(
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           Container(
-//             margin: const EdgeInsets.all(20),
-//             child: _dropdownButtonForSNS,
-//             // child: TextField(
-//             //   controller: namecontroller,
-//             //   decoration: const InputDecoration(
-//             //       border: OutlineInputBorder(),
-//             //       labelText: 'Enter your SNS NAME'),
-//             // ),
-//           ),
-//           const SizedBox(height: 15),
-//           const Text("Others (Name)",
-//               style: TextStyle(fontSize: 16)),
-//           Container(
-//             margin: const EdgeInsets.all(20),
-//             child: TextField(
-//               controller: namecontroller,
-//               decoration: const InputDecoration(
-//                   border: OutlineInputBorder(), labelText: 'others'),
-//             ),
-//           ),
-//           Container(
-//             margin: const EdgeInsets.all(20),
-//             child: TextField(
-//               controller: URLcontroller,
-//               decoration: const InputDecoration(
-//                   border: OutlineInputBorder(),
-//                   labelText: 'Enter your SNS URL'),
-//             ),
-//           ),
-//           Container(
-//             margin: const EdgeInsets.all(20),
-//             child: TextField(
-//               controller: etccontroller,
-//               decoration: const InputDecoration(
-//                   border: OutlineInputBorder(),
-//                   labelText: 'Enter your etc description'),
-//             ),
-//           ),
-//           //This button when pressed navigates to QR code generation
-//           ElevatedButton(
-//               onPressed: () async {
-//                 if (_dropdownButtonForSNS.selectedValue == 'others') {
-//                   print("SNS name type is 'others'");
-//                 }
-//                 // ignore: avoid_print
-//                 print(_dropdownButtonForSNS.selectedValue); //for debugging
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: ((context) {
-//                       return QRImage(URLcontroller);
-//                     }),
-//                   ),
-//                 );
-//               },
-//               child: const Text('GENERATE QR CODE')),
-//         ],
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'DropdownButton.dart'; // Your custom dropdown button implementation
+import 'AddElementToBox.dart';
 
 // If GenerateQRCode doesn't need to be a StatefulWidget, simplify it to StatelessWidget
 class GenerateQRCode extends StatelessWidget {
@@ -104,21 +15,23 @@ class GenerateQRCode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DropdownButtonForSNS _dropdownButtonForSNS = DropdownButtonForSNS(selectedValue: '');
+    DropdownButtonForSNS _dropdownButtonForSNS =
+        DropdownButtonForSNS(selectedValue: '');
 
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-        
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start, // Aligns children to the start, which is left for a Column
+          crossAxisAlignment: CrossAxisAlignment
+              .start, // Aligns children to the start, which is left for a Column
           children: <Widget>[
             Text(
               'Add Link',
               style: TextStyle(
                 color: Colors.black, // Assuming you want black text
-                fontSize: MediaQuery.of(context).size.width * 0.05, // Responsive font size
+                fontSize: MediaQuery.of(context).size.width *
+                    0.05, // Responsive font size
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -126,8 +39,10 @@ class GenerateQRCode extends StatelessWidget {
             Text(
               'Add a link to save it as a QR Code.',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.6), // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.035, // Slightly smaller and responsive font size
+                color: Colors.black.withOpacity(
+                    0.6), // Assuming you want slightly dimmed black text for the description
+                fontSize: MediaQuery.of(context).size.width *
+                    0.035, // Slightly smaller and responsive font size
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -135,8 +50,10 @@ class GenerateQRCode extends StatelessWidget {
             Text(
               'SNS Name*',
               style: TextStyle(
-                color: Colors.black, // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.04, // Slightly smaller and responsive font size
+                color: Colors
+                    .black, // Assuming you want slightly dimmed black text for the description
+                fontSize: MediaQuery.of(context).size.width *
+                    0.04, // Slightly smaller and responsive font size
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -146,28 +63,28 @@ class GenerateQRCode extends StatelessWidget {
             Text(
               'Others',
               style: TextStyle(
-                color: Colors.black, // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.04, // Slightly smaller and responsive font size
+                color: Colors
+                    .black, // Assuming you want slightly dimmed black text for the description
+                fontSize: MediaQuery.of(context).size.width *
+                    0.04, // Slightly smaller and responsive font size
                 fontWeight: FontWeight.w400,
               ),
             ),
             const SizedBox(height: 5),
             TextField(
-                controller: namecontroller,
-                decoration: const InputDecoration(
+              controller: namecontroller,
+              decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFCFD4DC)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF613EEA)),
                   ),
-                  contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
                   labelText: 'Enter Here',
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(167, 0, 0, 0)
-                  ),
-                  floatingLabelBehavior: FloatingLabelBehavior.never
-              ),
+                  labelStyle: TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
+                  floatingLabelBehavior: FloatingLabelBehavior.never),
             ),
             // if (_dropdownButtonForSNS.selectedValue == 'others') ...[
             //   TextField(
@@ -183,8 +100,10 @@ class GenerateQRCode extends StatelessWidget {
             Text(
               'Link*',
               style: TextStyle(
-                color: Colors.black, // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.04, // Slightly smaller and responsive font size
+                color: Colors
+                    .black, // Assuming you want slightly dimmed black text for the description
+                fontSize: MediaQuery.of(context).size.width *
+                    0.04, // Slightly smaller and responsive font size
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -192,27 +111,35 @@ class GenerateQRCode extends StatelessWidget {
             TextField(
               controller: URLcontroller,
               decoration: const InputDecoration(
-                enabledBorder: OutlineInputBorder(
+                  enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFCFD4DC)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF613EEA)),
                   ),
-                contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
-                labelText: 'www.example.com',
-                labelStyle: TextStyle(
-                  color: Color.fromARGB(167, 0, 0, 0)
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.never
-              ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                  labelText: 'www.example.com',
+                  labelStyle: TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
+                  floatingLabelBehavior: FloatingLabelBehavior.never),
             ),
             const SizedBox(height: 15),
+            //  when the QR Code button is pressed
             ElevatedButton(
               onPressed: () async {
-                if (_dropdownButtonForSNS.selectedValue == 'others') {
-                  print("SNS name type is 'others'");
+                String name = _dropdownButtonForSNS.selectedValue;
+                String url = URLcontroller.text;
+                String iconType = _dropdownButtonForSNS.selectedValue;
+                if (_dropdownButtonForSNS.selectedValue == 'Other') {
+                  print("SNS name type is 'Other'");
+                  name = namecontroller.text;
                 }
-                print(_dropdownButtonForSNS.selectedValue);
+                if (url == '') {
+                  print("error input");
+                }
+                AddElement().addElementToglobalBox(
+                    name, URLcontroller.text, " ", iconType);
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -223,38 +150,42 @@ class GenerateQRCode extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF613EEA), 
-                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015), 
+                backgroundColor: const Color(0xFF613EEA),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.015),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.03), 
+                minimumSize: Size(
+                    double.infinity, MediaQuery.of(context).size.height * 0.03),
               ),
               child: FittedBox(
-                fit: BoxFit.scaleDown, 
+                fit: BoxFit.scaleDown,
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: MediaQuery.of(context).size.width * 0.04, 
+                    color: Colors.white,
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 10), 
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); 
+                Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255), 
-                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015),
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.015),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8), 
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.03), 
+                minimumSize: Size(
+                    double.infinity, MediaQuery.of(context).size.height * 0.03),
               ),
               child: FittedBox(
                 fit: BoxFit.scaleDown,
@@ -262,7 +193,7 @@ class GenerateQRCode extends StatelessWidget {
                   'Cancel',
                   style: TextStyle(
                     color: const Color.fromARGB(255, 52, 64, 84),
-                    fontSize: MediaQuery.of(context).size.width * 0.04, 
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                   ),

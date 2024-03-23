@@ -16,7 +16,7 @@ const _snsItems = [
     child: Text('Facebook'),
   ),
   DropdownMenuItem(
-    value: 'LINE', 
+    value: 'LINE',
     child: Text('LINE'),
   ),
   DropdownMenuItem(
@@ -24,7 +24,7 @@ const _snsItems = [
     child: Text('WhatsApp'),
   ),
   DropdownMenuItem(
-    value: 'KakaoTalk', 
+    value: 'KakaoTalk',
     child: Text('KakaoTalk'),
   ),
   DropdownMenuItem(
@@ -32,19 +32,19 @@ const _snsItems = [
     child: Text('Discord'),
   ),
   DropdownMenuItem(
-    value: 'TikTok', 
+    value: 'TikTok',
     child: Text('TikTok'),
   ),
   DropdownMenuItem(
-    value: 'Youtube', 
+    value: 'Youtube',
     child: Text('Youtube'),
   ),
   DropdownMenuItem(
-    value: 'Twitch', 
+    value: 'Twitch',
     child: Text('Twitch'),
   ),
   DropdownMenuItem(
-    value: 'Pinterest', 
+    value: 'Pinterest',
     child: Text('Pinterest'),
   ),
   DropdownMenuItem(
@@ -52,7 +52,7 @@ const _snsItems = [
     child: Text('GitHub'),
   ),
   DropdownMenuItem(
-    value: 'LinkedIn', 
+    value: 'LinkedIn',
     child: Text('LinkedIn'),
   ),
   DropdownMenuItem(
@@ -79,20 +79,19 @@ class _DropdownButtonForSNS_State extends State<DropdownButtonForSNS> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: _dropdownValue,
-      icon: const Icon(Icons.arrow_drop_down, color: Color.fromARGB(167, 0, 0, 0)),
+      icon: const Icon(Icons.arrow_drop_down,
+          color: Color.fromARGB(167, 0, 0, 0)),
       decoration: const InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFCFD4DC)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFF613EEA)),
-        ),
-        labelText: 'Choose App',
-        labelStyle: TextStyle(
-          color: Color.fromARGB(167, 0, 0, 0)
-        ),
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10)),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFCFD4DC)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF613EEA)),
+          ),
+          labelText: 'Choose App',
+          labelStyle: TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10)),
       elevation: 16,
       items: _snsItems,
       menuMaxHeight: 300,
