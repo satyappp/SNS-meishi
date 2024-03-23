@@ -52,11 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Container(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: verticalPadding,
+        padding: EdgeInsets.only(
+          top: verticalPadding, 
+          left: horizontalPadding,
+          right: horizontalPadding, 
         ),
         child: showElements(),
         decoration: const BoxDecoration(
@@ -66,23 +65,29 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      // button settings
-      /// FloatingActionButtion
-      floatingActionButton: FloatingActionButton(
+      
+      floatingActionButton: Container(
+        width: screenWidth * 0.17,
+        height: screenWidth * 0.17,
+        child: FloatingActionButton(
+          elevation: 3,
+          shape: CircleBorder(),
+          hoverColor:  Color.fromARGB(255, 132, 107, 231),
+          focusColor: Color.fromARGB(255, 132, 107, 231),
           onPressed: () {
             setState(() {});
           },
-          tooltip: 'Increment',
+          tooltip: 'Home',
           child: const Icon(Icons.home, color: Color(0xFFFFFFFF), size: 35),
         ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-      /// bottomNavigationBar
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(), // 下部ナビゲーションバーの形状を設定
+        shape: const CircularNotchedRectangle(), 
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
+            
             // camera button
             IconButton(
               icon: const Icon(Icons.camera_alt,
