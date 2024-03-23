@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
-import '../function/GenerateQRcode.dart ';
+import '../function/GenerateQRcode.dart';
 import '../function/ShowElements.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -33,6 +33,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double horizontalPadding = screenWidth * 0.05; 
+    double verticalPadding = screenHeight * 0.05; 
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     return Scaffold(
@@ -43,14 +47,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('SNS MEISHI', style: GoogleFonts.kodchasan()),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontSize: MediaQuery.of(context).size.width *
-              0.057, // Slightly smaller and responsive font size
+          fontSize: screenWidth *0.057, 
           fontWeight: FontWeight.w700,
         ),
       ),
       body: Container(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        ),
         child: showElements(),
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -61,17 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       // button settings
       /// FloatingActionButtion
-      floatingActionButton: SizedBox(
-        width: 90,
-        height: 90,
-        child: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {});
           },
           tooltip: 'Increment',
           child: const Icon(Icons.home, color: Color(0xFFFFFFFF), size: 35),
         ),
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       /// bottomNavigationBar
@@ -102,8 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Container(
                         // padding: const EdgeInsets.all(0),
                         // width: double.infinity,
-
-                        child: GenerateQRCode(),
+                        child: GenerateQRCode(
+                          refreshHomePage: () {
+                            setState(() {});
+                          },
+                        ),
                       ),
                     );
                   },

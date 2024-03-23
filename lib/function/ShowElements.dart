@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ShowQRcode.dart';
+import 'dart:ui';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'global.dart';
 import 'GenerateQRcode.dart';
@@ -63,8 +64,8 @@ class showElements extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 20,
         crossAxisCount: 2,
       ),
       itemCount: globalBox!.length,
@@ -81,14 +82,39 @@ class showElements extends StatelessWidget {
             },
             child: Container(
                 child: Column(
-              children: [
-                SizedBox(
-                  child: _imageMatchingWith(snsName, iconType),
+                  // mainAxisSize: MainAxisSize.min,
+                  children: [
+                   SizedBox(
+                    child: _imageMatchingWith(snsName, iconType),
+                  ),
+                Flexible(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                     
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                        child: Container(
+                          alignment: Alignment.center,
+                          color: Colors.white.withOpacity(0.3),
+                          padding: const EdgeInsets.all(0),
+                          child: Text(
+                            data.name,
+                            style: const TextStyle(
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                Text(data.url,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ))
+                // Spacer()
               ],
             )));
       },

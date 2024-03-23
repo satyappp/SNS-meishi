@@ -21,19 +21,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SNS MEISHI',
       debugShowCheckedModeBanner: false,
+      
       theme: ThemeData(
-          colorScheme: const ColorScheme(
-        primary: Color(0xFF613EEA),
-        secondary: Color(0xFF613EEA),
-        surface: Color.fromARGB(255, 30, 30, 30),
-        background: Color.fromARGB(255, 255, 255, 255),
-        error: Color(0xFFB00020),
-        onPrimary: Color(0xFF613EEA),
-        onSecondary: Color(0xFF000000),
-        onSurface: Color.fromARGB(255, 0, 0, 0),
-        onBackground: Color(0xFFFFFFFF),
-        onError: Color.fromARGB(223, 0, 0, 0),
-        brightness: Brightness.dark,
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          sizeConstraints: BoxConstraints.tightFor(
+            width: 90.0,
+            height: 90.0,
+          ),
+        ),
+        colorScheme: const ColorScheme(
+          primary: Color(0xFF613EEA),
+          secondary: Color(0xFF613EEA),
+          surface: Color.fromARGB(255, 30, 30, 30),
+          background: Color.fromARGB(255, 255, 255, 255),
+          error: Color(0xFFB00020),
+          onPrimary: Color(0xFF613EEA),
+          onSecondary: Color(0xFF000000),
+          onSurface: Color.fromARGB(255, 0, 0, 0),
+          onBackground: Color(0xFFFFFFFF),
+          onError: Color.fromARGB(223, 0, 0, 0),
+          brightness: Brightness.dark,
       )),
       home: const SplashScreen(),
     );
