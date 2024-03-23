@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import '../function/GenerateQRcode.dart';
+import '../function/ShowElements.dart';
 
 class MyHomePage extends StatefulWidget {
   //  constructor
@@ -50,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
+        child: showElements(),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/Home-Screen-bg.png"),
@@ -84,8 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Color(0xFFFFFFFF), size: 30),
               onPressed: _openCamera,
             ),
-            // settings button
-
             IconButton(
               icon:
                   const Icon(Icons.qr_code, color: Color(0xFFFFFFFF), size: 30),

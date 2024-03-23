@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'pages/HomePage.dart';
+import 'package:flutter_practice/SNSInfo.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'function/global.dart';
 import 'pages/SplashScreen.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(SNSInfoAdapter());
+  WidgetsFlutterBinding.ensureInitialized();
+  await initGlobalBox();
   runApp(const MyApp());
 }
 
