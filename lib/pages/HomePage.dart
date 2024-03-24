@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import '../function/GenerateQRcode.dart';
 import 'package:camera/camera.dart';
-import '../function/AddElement.dart';
 import '../function/ShowElements.dart';
 
 class MyHomePage extends StatefulWidget {
