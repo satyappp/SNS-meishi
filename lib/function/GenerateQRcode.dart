@@ -8,7 +8,7 @@ import 'AddElementToBox.dart';
 // If GenerateQRCode doesn't need to be a StatefulWidget, simplify it to StatelessWidget
 class GenerateQRCode extends StatefulWidget {
   final Function refreshHomePage;
-   GenerateQRCode({Key? key, required this.refreshHomePage}) : super(key: key);
+  GenerateQRCode({Key? key, required this.refreshHomePage}) : super(key: key);
   @override
   _GenerateQRCodeState createState() => _GenerateQRCodeState();
 }
@@ -192,7 +192,9 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
             //  when the QR Code button is pressed
             ElevatedButton(
               onPressed: () async {
-                if (URLcontroller.text.isNotEmpty && (namecontroller.text.isNotEmpty||selectedValue != 'Other') ){
+                if (URLcontroller.text.isNotEmpty &&
+                    (namecontroller.text.isNotEmpty ||
+                        selectedValue != 'Other')) {
                   String name = selectedValue;
                   String url = URLcontroller.text;
                   String iconType = selectedValue;
@@ -203,12 +205,12 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
                   AddElement().addElementToglobalBox(name, url, " ", iconType);
                   widget.refreshHomePage();
                   Navigator.pop(context);
-                // } else if (URLcontroller.text.isNotEmpty &&
-                //     namecontroller.text.isNotEmpty) {
-                //   String name = namecontroller.text;
-                //   String url = URLcontroller.text;
-                // AddElement().addElementToglobalBox(
-                //     name, URLcontroller.text, " ", "");
+                  // } else if (URLcontroller.text.isNotEmpty &&
+                  //     namecontroller.text.isNotEmpty) {
+                  //   String name = namecontroller.text;
+                  //   String url = URLcontroller.text;
+                  // AddElement().addElementToglobalBox(
+                  //     name, URLcontroller.text, " ", "");
                 } else {
                   _showErrorDialog();
                 }
