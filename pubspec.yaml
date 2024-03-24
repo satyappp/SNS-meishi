@@ -46,6 +46,7 @@ dependencies:
   google_fonts: ^6.2.1
   hive: ^2.2.3
   hive_flutter: any
+  camera: ^0.10.5+9
 
 dev_dependencies:
   flutter_test:

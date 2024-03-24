@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../SNSInfo.dart';
 import 'dart:ui';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'global.dart';
@@ -60,13 +59,49 @@ class _showElementsState extends State<showElements> {
   }
 
   Future<void> _showDeleteConfirmation(
-      BuildContext context, int box_key) async {
+      BuildContext context, int box_key, data) async {
+    final urlController = TextEditingController(text: data.url);
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Delete this item?'),
-          content: const Text('This will remove the item permanently.'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(height: 10),
+                Text(
+                  'Change your SNS URL',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                TextField(
+                  controller: urlController,
+                  decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFCFD4DC)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF613EEA)),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                      labelText: 'Enter Here',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
+                      floatingLabelBehavior: FloatingLabelBehavior.never),
+                ),
+                // const SizedBox(height: 10),
+                // const Text('This will remove the item permanently.'),
+              ],
+            ),
+          ),
           actions: <Widget>[
             TextButton(
               child: const Text('Cancel'),
@@ -78,6 +113,18 @@ class _showElementsState extends State<showElements> {
               child: const Text('Delete'),
               onPressed: () async {
                 await globalBox!.delete(box_key);
+                widget.refreshHomePage();
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Change'),
+              onPressed: () async {
+                String updatedUrl = urlController.text;
+                if (globalBox!.get(box_key) != null) {
+                  data.url = updatedUrl;
+                  await globalBox!.put(box_key, data);
+                }
                 widget.refreshHomePage();
                 Navigator.of(context).pop();
               },
@@ -109,7 +156,7 @@ class _showElementsState extends State<showElements> {
               print("You tapped");
               await _showQRcode(context, snsURL);
             },
-            onLongPress: () => _showDeleteConfirmation(context, box_key),
+            onLongPress: () => _showDeleteConfirmation(context, box_key, data),
             child: Container(
                 child: Column(
               // mainAxisSize: MainAxisSize.min,
