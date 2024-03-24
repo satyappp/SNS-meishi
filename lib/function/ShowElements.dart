@@ -78,7 +78,7 @@ class _showElementsState extends State<showElements> {
               child: const Text('Delete'),
               onPressed: () async {
                 await globalBox!.delete(box_key);
-                await widget.refreshHomePage;
+                widget.refreshHomePage();
                 Navigator.of(context).pop();
               },
             ),
