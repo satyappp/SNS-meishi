@@ -8,7 +8,7 @@ part of 'SNSInfo.dart';
 
 class SNSInfoAdapter extends TypeAdapter<SNSInfo> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
   SNSInfo read(BinaryReader reader) {
@@ -17,7 +17,7 @@ class SNSInfoAdapter extends TypeAdapter<SNSInfo> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SNSInfo(
-      name: fields[0] as String?,
+      name: fields[0] as String,
       url: fields[1] as String,
       icon: fields[2] as String,
       iconType: fields[3] as String,

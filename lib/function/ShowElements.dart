@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'ShowQRcode.dart';
+import '../SNSInfo.dart';
 import 'dart:ui';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'global.dart';
 
-class showElements extends StatelessWidget {
+class showElements extends StatefulWidget {
+  final Function refreshHomePage;
+  List globalBox_keys_list = globalBox!.keys.toList();
+  showElements({Key? key, required this.refreshHomePage}) : super(key: key);
+  @override
+  _showElementsState createState() => _showElementsState();
+}
+
+class _showElementsState extends State<showElements> {
   //  constructor
-  const showElements({Key? key}) : super(key: key);
 
   _imageMatchingWith(String snsName, String iconType) {
     String assetPath = "assets/Icon-$snsName.png";
@@ -51,7 +58,9 @@ class showElements extends StatelessWidget {
               child: Container(child: _QRcodeImage(snsURL)));
         });
   }
-  Future<void> _showDeleteConfirmation(BuildContext context, int index) async {
+
+  Future<void> _showDeleteConfirmation(
+      BuildContext context, int box_key) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -62,13 +71,15 @@ class showElements extends StatelessWidget {
             TextButton(
               child: const Text('Cancel'),
               onPressed: () {
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               },
             ),
             TextButton(
               child: const Text('Delete'),
-              onPressed: () {
-                Navigator.of(context).pop(); 
+              onPressed: () async {
+                await globalBox!.delete(box_key);
+                await widget.refreshHomePage;
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -76,6 +87,7 @@ class showElements extends StatelessWidget {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -84,9 +96,10 @@ class showElements extends StatelessWidget {
         mainAxisSpacing: 20,
         crossAxisCount: 2,
       ),
-      itemCount: globalBox!.length,
+      itemCount: widget.globalBox_keys_list.length,
       itemBuilder: (context, int index) {
-        final data = globalBox!.get(index);
+        final box_key = widget.globalBox_keys_list[index];
+        final data = globalBox!.get(box_key);
         String snsName = data.name;
         String snsURL = data.url;
         String iconType = data.iconType;
@@ -96,20 +109,19 @@ class showElements extends StatelessWidget {
               print("You tapped");
               await _showQRcode(context, snsURL);
             },
-            onLongPress: () => _showDeleteConfirmation(context, index),
+            onLongPress: () => _showDeleteConfirmation(context, box_key),
             child: Container(
                 child: Column(
-                  // mainAxisSize: MainAxisSize.min,
-                  children: [
-                   SizedBox(
-                    child: _imageMatchingWith(snsName, iconType),
-                  ),
+              // mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  child: _imageMatchingWith(snsName, iconType),
+                ),
                 Flexible(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                     
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),

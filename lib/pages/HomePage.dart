@@ -35,8 +35,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    double horizontalPadding = screenWidth * 0.05; 
-    double verticalPadding = screenHeight * 0.05; 
+    double horizontalPadding = screenWidth * 0.05;
+    double verticalPadding = screenHeight * 0.05;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     return Scaffold(
@@ -47,17 +47,21 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('SNS MEISHI', style: GoogleFonts.kodchasan()),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontSize: screenWidth *0.057, 
+          fontSize: screenWidth * 0.057,
           fontWeight: FontWeight.w700,
         ),
       ),
       body: Container(
         padding: EdgeInsets.only(
-          top: verticalPadding, 
+          top: verticalPadding,
           left: horizontalPadding,
-          right: horizontalPadding, 
+          right: horizontalPadding,
         ),
-        child: showElements(),
+        child: showElements(
+          refreshHomePage: () {
+            setState(() {});
+          },
+        ),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/Home-Screen-bg.png"),
@@ -65,14 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      
       floatingActionButton: Container(
         width: screenWidth * 0.17,
         height: screenWidth * 0.17,
         child: FloatingActionButton(
           elevation: 3,
           shape: CircleBorder(),
-          hoverColor:  Color.fromARGB(255, 132, 107, 231),
+          hoverColor: Color.fromARGB(255, 132, 107, 231),
           focusColor: Color.fromARGB(255, 132, 107, 231),
           onPressed: () {
             setState(() {});
@@ -83,11 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(), 
+        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            
             // camera button
             IconButton(
               icon: const Icon(Icons.camera_alt,
