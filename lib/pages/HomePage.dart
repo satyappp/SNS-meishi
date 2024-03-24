@@ -38,6 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double horizontalPadding = screenWidth * 0.05;
+    double verticalPadding = screenHeight * 0.05;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     return Scaffold(
@@ -48,15 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('SNS MEISHI', style: GoogleFonts.kodchasan()),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontSize: MediaQuery.of(context).size.width *
-              0.057, // Slightly smaller and responsive font size
+          fontSize: screenWidth * 0.057,
           fontWeight: FontWeight.w700,
         ),
       ),
       body: Container(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: showElements(),
+        padding: EdgeInsets.only(
+          top: verticalPadding,
+          left: horizontalPadding,
+          right: horizontalPadding,
+        ),
+        child: showElements(
+          refreshHomePage: () {
+            setState(() {});
+          },
+        ),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/Home-Screen-bg.png"),
@@ -64,24 +74,24 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      // button settings
-      /// FloatingActionButtion
-      floatingActionButton: SizedBox(
-        width: 90,
-        height: 90,
+      floatingActionButton: Container(
+        width: screenWidth * 0.17,
+        height: screenWidth * 0.17,
         child: FloatingActionButton(
+          elevation: 3,
+          shape: CircleBorder(),
+          hoverColor: Color.fromARGB(255, 132, 107, 231),
+          focusColor: Color.fromARGB(255, 132, 107, 231),
           onPressed: () {
             setState(() {});
           },
-          tooltip: 'Increment',
+          tooltip: 'Home',
           child: const Icon(Icons.home, color: Color(0xFFFFFFFF), size: 35),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-      /// bottomNavigationBar
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(), // 下部ナビゲーションバーの形状を設定
+        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -107,8 +117,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Container(
                         // padding: const EdgeInsets.all(0),
                         // width: double.infinity,
-
-                        child: GenerateQRCode(),
+                        child: GenerateQRCode(
+                          refreshHomePage: () {
+                            setState(() {});
+                          },
+                        ),
                       ),
                     );
                   },

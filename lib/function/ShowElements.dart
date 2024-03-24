@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
-import 'ShowQRcode.dart';
+import '../SNSInfo.dart';
+import 'dart:ui';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'global.dart';
 
-class showElements extends StatelessWidget {
+class showElements extends StatefulWidget {
+  final Function refreshHomePage;
+  List globalBox_keys_list = globalBox!.keys.toList();
+  showElements({Key? key, required this.refreshHomePage}) : super(key: key);
+  @override
+  _showElementsState createState() => _showElementsState();
+}
+
+class _showElementsState extends State<showElements> {
   //  constructor
-  const showElements({Key? key}) : super(key: key);
 
   _imageMatchingWith(String snsName, String iconType) {
     String assetPath = "assets/Icon-$snsName.png";
@@ -51,35 +59,91 @@ class showElements extends StatelessWidget {
         });
   }
 
+  Future<void> _showDeleteConfirmation(
+      BuildContext context, int box_key) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete this item?'),
+          content: const Text('This will remove the item permanently.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Delete'),
+              onPressed: () async {
+                await globalBox!.delete(box_key);
+                widget.refreshHomePage();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: 0,
+        mainAxisSpacing: 20,
         crossAxisCount: 2,
       ),
-      itemCount: globalBox!.length,
+      itemCount: widget.globalBox_keys_list.length,
       itemBuilder: (context, int index) {
-        final data = globalBox!.get(index);
+        final box_key = widget.globalBox_keys_list[index];
+        final data = globalBox!.get(box_key);
         String snsName = data.name;
         String snsURL = data.url;
         String iconType = data.iconType;
+        String icon = data.icon;
         return GestureDetector(
             onTap: () async {
               print("You tapped");
               await _showQRcode(context, snsURL);
             },
+            onLongPress: () => _showDeleteConfirmation(context, box_key),
             child: Container(
                 child: Column(
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
                   child: _imageMatchingWith(snsName, iconType),
                 ),
-                Text(data.url,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ))
+                Flexible(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                        child: Container(
+                          alignment: Alignment.center,
+                          color: Colors.white.withOpacity(0.3),
+                          padding: const EdgeInsets.all(0),
+                          child: Text(
+                            data.name,
+                            style: const TextStyle(
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Spacer()
               ],
             )));
       },
