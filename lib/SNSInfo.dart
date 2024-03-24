@@ -2,10 +2,10 @@ import 'package:hive/hive.dart';
 
 part 'SNSInfo.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 0)
 class SNSInfo {
   @HiveField(0)
-  String? name;
+  String name;
 
   @HiveField(1)
   String url;

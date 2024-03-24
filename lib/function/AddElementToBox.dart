@@ -17,6 +17,7 @@ class AddElement {
     if (globalBox != null) {
       _printBoxContents(globalBox!);
     }
+    print('legnth is ${globalBox!.length}');
   }
 
   void _printBoxContents(Box box) {
@@ -26,5 +27,6 @@ class AddElement {
       var value = box.get(key);
       print('$key: ${value.name}');
     }
+    print(globalBox!.keys.toList());
   }
 }
