@@ -1,5 +1,11 @@
 // import 'package:flutter/material.dart';
 import 'ShowQRcode.dart';
+import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import '../SNSInfo.dart';
+import 'package:hive/hive.dart';
+import 'global.dart';
 // import 'DropdownButton.dart';
 
 // //https://medium.com/podiihq/generating-qr-code-in-a-flutter-app-50de15e39830
@@ -95,39 +101,55 @@ import 'package:flutter/material.dart';
 import 'DropdownButton.dart'; // Your custom dropdown button implementation
 
 // If GenerateQRCode doesn't need to be a StatefulWidget, simplify it to StatelessWidget
-class GenerateQRCode extends StatelessWidget {
+class GenerateQRCode extends StatefulWidget {
   GenerateQRCode({Key? key}) : super(key: key);
+  @override
+  _GenerateQRCodeState createState() => _GenerateQRCodeState();
+}
 
-  final TextEditingController URLcontroller = TextEditingController();
-  final TextEditingController namecontroller = TextEditingController();
-  final TextEditingController etccontroller = TextEditingController();
-
+class _GenerateQRCodeState extends State<GenerateQRCode> {
+  TextEditingController icon = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController url = TextEditingController();
+  TextEditingController etc = TextEditingController();
+  String selectedValue = '';
+  File? _img;
+   Future<void> pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _img = File(pickedFile.path);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    DropdownButtonForSNS _dropdownButtonForSNS = DropdownButtonForSNS(selectedValue: '');
-
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-        
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start, // Aligns children to the start, which is left for a Column
+          crossAxisAlignment: CrossAxisAlignment
+              .start, // Aligns children to the start, which is left for a Column
           children: <Widget>[
             Text(
               'Add Link',
               style: TextStyle(
                 color: Colors.black, // Assuming you want black text
-                fontSize: MediaQuery.of(context).size.width * 0.05, // Responsive font size
+                fontSize: MediaQuery.of(context).size.width *
+                    0.05, // Responsive font size
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               'Add a link to save it as a QR Code.',
               style: TextStyle(
-                color: Colors.black.withOpacity(0.6), // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.035, // Slightly smaller and responsive font size
+                color: Colors.black.withOpacity(
+                    0.6), // Assuming you want slightly dimmed black text for the description
+                fontSize: MediaQuery.of(context).size.width *
+                    0.035, // Slightly smaller and responsive font size
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -135,126 +157,170 @@ class GenerateQRCode extends StatelessWidget {
             Text(
               'SNS Name*',
               style: TextStyle(
-                color: Colors.black, // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.04, // Slightly smaller and responsive font size
+                color: Colors
+                    .black, // Assuming you want slightly dimmed black text for the description
+                fontSize: MediaQuery.of(context).size.width *
+                    0.04, // Slightly smaller and responsive font size
                 fontWeight: FontWeight.w400,
               ),
             ),
             const SizedBox(height: 5),
-            _dropdownButtonForSNS,
+            DropdownButtonForSNS(
+              selectedValue: selectedValue,
+              onChanged: (newValue) {
+                setState(() {
+                  selectedValue = newValue ?? '';
+                });
+              },
+            ),
+            if (selectedValue == 'Other') ...[
+              const SizedBox(height: 10),
+              Text(
+                'What is your SNS name',
+                style: TextStyle(
+                  color: Colors
+                      .black, // Assuming you want slightly dimmed black text for the description
+                  fontSize: MediaQuery.of(context).size.width *
+                      0.04, // Slightly smaller and responsive font size
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 5),
+              TextField(
+                controller: name,
+                decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCFD4DC)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFF613EEA)),
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                    labelText: 'Enter Here',
+                    labelStyle: TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
+                    floatingLabelBehavior: FloatingLabelBehavior.never),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Upload the SNS icon',
+                style: TextStyle(
+                  color: Colors
+                      .black, // Assuming you want slightly dimmed black text for the description
+                  fontSize: MediaQuery.of(context).size.width *
+                      0.04, // Slightly smaller and responsive font size
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+               FloatingActionButton(
+                onPressed: pickImage,
+                tooltip: 'Pick Image From Gallery',
+                heroTag: 'gallery',
+                child: const Icon(Icons.photo_library),
+              ),
+              //TextField(
+              //  controller: etc,
+              //  decoration: const InputDecoration(
+              //    border: OutlineInputBorder(),
+              //    contentPadding:
+              //        EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+              //    labelText: 'Others_etc',
+             //   ),
+            //  ),
+            ],
             const SizedBox(height: 10),
             Text(
-              'Others',
+              'Link*',
               style: TextStyle(
-                color: Colors.black, // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.04, // Slightly smaller and responsive font size
+                color: Colors
+                    .black, // Assuming you want slightly dimmed black text for the description
+                fontSize: MediaQuery.of(context).size.width *
+                    0.04, // Slightly smaller and responsive font size
                 fontWeight: FontWeight.w400,
               ),
             ),
             const SizedBox(height: 5),
             TextField(
-                controller: namecontroller,
-                decoration: const InputDecoration(
+              controller: url,
+              decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFCFD4DC)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF613EEA)),
                   ),
-                  contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
-                  labelText: 'Enter Here',
-                  labelStyle: TextStyle(
-                    color: Color.fromARGB(167, 0, 0, 0)
-                  ),
-                  floatingLabelBehavior: FloatingLabelBehavior.never
-              ),
-            ),
-            // if (_dropdownButtonForSNS.selectedValue == 'others') ...[
-            //   TextField(
-            //     controller: etccontroller,
-            //     decoration: const InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
-            //       labelText: 'Others',
-            //     ),
-            //   ),
-            // ],
-            const SizedBox(height: 10),
-            Text(
-              'Link*',
-              style: TextStyle(
-                color: Colors.black, // Assuming you want slightly dimmed black text for the description
-                fontSize: MediaQuery.of(context).size.width * 0.04, // Slightly smaller and responsive font size
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(height: 5),
-            TextField(
-              controller: URLcontroller,
-              decoration: const InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFCFD4DC)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF613EEA)),
-                  ),
-                contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
-                labelText: 'www.example.com',
-                labelStyle: TextStyle(
-                  color: Color.fromARGB(167, 0, 0, 0)
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.never
-              ),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 10),
+                  labelText: 'www.example.com',
+                  labelStyle: TextStyle(color: Color.fromARGB(167, 0, 0, 0)),
+                  floatingLabelBehavior: FloatingLabelBehavior.never),
             ),
             const SizedBox(height: 15),
             ElevatedButton(
               onPressed: () async {
-                if (_dropdownButtonForSNS.selectedValue == 'others') {
-                  print("SNS name type is 'others'");
+                if (selectedValue == 'Other') {
+                  print(name.text);
+                  var Librarydata = SNSInfo(
+                  icon: icon.text,
+                  name: name.text,
+                  url: url.text,
+                );
+                                  var box = Hive.box('libarybox');
+                  box.add(Librarydata);
+                  print('Info added to box!');
+                } else {
+                  var Librarydata = SNSInfo(//pair to assets icon
+                  icon: icon.text,
+                  name: name.text,
+                  url: url.text,
+                );
                 }
-                print(_dropdownButtonForSNS.selectedValue);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: ((context) {
-                      return QRImage(URLcontroller);
+                      return QRImage(url);
                     }),
                   ),
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF613EEA), 
-                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015), 
+                backgroundColor: const Color(0xFF613EEA),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.015),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.03), 
+                minimumSize: Size(
+                    double.infinity, MediaQuery.of(context).size.height * 0.03),
               ),
               child: FittedBox(
-                fit: BoxFit.scaleDown, 
+                fit: BoxFit.scaleDown,
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: MediaQuery.of(context).size.width * 0.04, 
+                    color: Colors.white,
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 10), 
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); 
+                Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255), 
-                padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015),
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.015),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8), 
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                minimumSize: Size(double.infinity, MediaQuery.of(context).size.height * 0.03), 
+                minimumSize: Size(
+                    double.infinity, MediaQuery.of(context).size.height * 0.03),
               ),
               child: FittedBox(
                 fit: BoxFit.scaleDown,
@@ -262,7 +328,7 @@ class GenerateQRCode extends StatelessWidget {
                   'Cancel',
                   style: TextStyle(
                     color: const Color.fromARGB(255, 52, 64, 84),
-                    fontSize: MediaQuery.of(context).size.width * 0.04, 
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                   ),
