@@ -22,7 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
     WidgetsFlutterBinding.ensureInitialized();
     final cameras = await availableCameras();
     final firstCamera = cameras.first;
-
     // var openAppResult = await LaunchApp.openApp(
     //     androidPackageName: 'com.google.android.GoogleCamera',
     //     iosUrlScheme: 'camera://',
