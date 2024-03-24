@@ -19,13 +19,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   void _openCamera() async {
-    var openAppResult = await LaunchApp.openApp(
-        androidPackageName: 'com.google.android.GoogleCamera',
-        iosUrlScheme: 'camera://',
-        appStoreLink: 'itms-apps:/apps.apple.com/jp/app/カメラ/id1584216193',
-        openStore: false);
-    // ignore: avoid_print
-    print('openAppResult => $openAppResult ${openAppResult.runtimeType}');
+    WidgetsFlutterBinding.ensureInitialized();
+    final cameras = await availableCameras();
+    final firstCamera = cameras.first;
+
+    // var openAppResult = await LaunchApp.openApp(
+    //     androidPackageName: 'com.google.android.GoogleCamera',
+    //     iosUrlScheme: 'camera://',
+    //     appStoreLink: 'itms-apps:/apps.apple.com/jp/app/カメラ/id1584216193',
+    //     openStore: false);
+    // // ignore: avoid_print
+    // print('openAppResult => $openAppResult ${openAppResult.runtimeType}');
     // Enter thr package name of the App you want to open and for iOS add the URLscheme to the Info.plist file.
     // The second arguments decide wether the app redirects PlayStore or AppStore.
     // For testing purpose you can enter com.instagram.android
